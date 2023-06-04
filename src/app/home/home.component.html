@@ -4,6 +4,12 @@
       <form>
         <mat-form-field>
           <input matInput type="text" placeholder="Search">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
+              {{ location }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-icon class="location-icon" (click)="detectLocation()">my_location</mat-icon>
           <mat-icon class="search-icon" (click)="searchLocation()">search</mat-icon>
         </mat-form-field>
       </form>
