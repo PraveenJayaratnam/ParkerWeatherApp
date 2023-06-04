@@ -1,0 +1,52 @@
+.container-fluid {
+  height: 91svh;
+  width: 100vw;
+  background: url(../../assets/draw1.webp);
+}
+
+.serach-bar {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.col-3>mat-card {
+  background-color: #f5f6f7;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  height: 230px;
+}
+
+.search-icon {
+  color: grey;
+  vertical-align: middle;
+  margin-left: -24px;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  color: #0088ff;
+}
+
+.zoom-card {
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.zoom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .zoom-card {
+    transition: none;
+    transform: none;
+    box-shadow: none;
+    cursor: auto;
+  }
+}

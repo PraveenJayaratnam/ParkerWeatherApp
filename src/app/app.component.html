@@ -1,1 +1,30 @@
-<app-hello-world></app-hello-world>
+<div class="container-fluid">
+  <mat-toolbar class="d-flex justify-content-between app-title">
+    <div class="col-md-2 d-flex justify-content-start align-items-center">
+      <p>
+        <span class="fw-bold h2">Weather App</span>
+      </p>
+    </div>
+    <div class="col-md-5 d-none d-md-block">
+      <mat-nav-list class="d-flex align-items-center">
+        <a mat-list-item routerLink="/">Weather</a>
+        <a mat-list-item routerLink="/time">Time</a>
+        <a mat-list-item routerLink="/about">About</a>
+        <a mat-list-item routerLink="/contactus">Contact Us</a>
+      </mat-nav-list>
+    </div>
+    <div class="col-md-5 d-md-none">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item routerLink="/">Weather</a>
+        <a mat-menu-item routerLink="/time">Time</a>
+        <a mat-menu-item routerLink="/about">About</a>
+        <a mat-menu-item routerLink="/contactus">Contact Us</a>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+</div>
