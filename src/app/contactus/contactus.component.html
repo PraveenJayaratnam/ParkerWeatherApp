@@ -2,24 +2,36 @@
 
   <h2>Contact Us</h2>
   <div class="contact-form">
-    <form>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
       <div>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput type="text" name="name" required>
+          <input matInput type="text" name="name" formControlName="name">
+          <mat-error class="small">* name is Required</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput type="email" name="email" required>
+          <input matInput type="email" name="email" formControlName="email">
+          <mat-error *ngIf="contactForm.get('email')?.errors?.['required']" class="small">* email is
+            required</mat-error>
+          <mat-error *ngIf="!contactForm.get('email')?.errors?.['required']" class="small">* please Enter a Valid
+            Email</mat-error>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Message</mat-label>
-          <textarea matInput name="message" required></textarea>
+          <textarea matInput name="message" required formControlName="message"></textarea>
+          <mat-error *ngIf="contactForm.get('message')?.errors?.['required']" class="small">* Please enter a
+            message.</mat-error>
+          <mat-error *ngIf="contactForm.get('message')?.errors?.['minlength']" class="small">* At least 8 letters
+            required.</mat-error>
+          <mat-error *ngIf="contactForm.get('message')?.errors?.['maxlength']" class="small">* Only 100 letters
+            allowed.</mat-error>
         </mat-form-field>
+
       </div>
       <div>
         <button class="btn btn-primary" type="submit">Send Message</button>
