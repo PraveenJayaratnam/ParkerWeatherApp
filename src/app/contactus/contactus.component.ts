@@ -1,10 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ContactInterface } from '../contactus.model';
 
 @Component({
   selector: 'app-contactus',
@@ -14,9 +11,10 @@ import {
 export class ContactusComponent implements OnInit {
   contactForm!: FormGroup;
 
-  constructor(private formbuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+
   ngOnInit(): void {
-    this.contactForm = this.formbuilder.group({
+    this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       message: [
@@ -31,6 +29,15 @@ export class ContactusComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.contactForm.value);
+    const contactUs: ContactInterface = this.contactForm.value;
+    this.http
+      .post(
+        'https://parkerweatherapp-default-rtdb.firebaseio.com/contactUs.json',
+        contactUs
+      )
+      .subscribe(
+        () => {},
+        (error) => {}
+      );
   }
 }

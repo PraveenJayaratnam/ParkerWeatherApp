@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { TimeComponent } from './time/time.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TimeComponent } from './time/time.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
