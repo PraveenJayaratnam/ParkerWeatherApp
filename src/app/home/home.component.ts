@@ -1,49 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  locationControl = new FormControl();
-  locations: string[] = [];
+export class HomeComponent implements OnInit {
+  locations: any[] = [];
+  LocationControl: FormControl = new FormControl();
+  @ViewChild('textEntered') textEntered!: ElementRef;
+  selectedLocation: any;
 
-  filteredLocations: Observable<string[]>;
+  constructor(private weatherService: WeatherService) {}
 
-  constructor() {
-    this.filteredLocations = this.locationControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this.filterLocations(value))
-    );
-  }
+  ngOnInit(): void {}
 
-  private filterLocations(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.locations.filter((location) =>
-      location.toLowerCase().includes(filterValue)
-    );
-  }
-
-  searchLocation() {}
-
-  detectLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          console.log('Latitude:', latitude);
-          console.log('Longitude:', longitude);
-        },
-        (error) => {
-          console.error('Error getting location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
+  getLocations() {
+    const inputValue = this.textEntered.nativeElement.value;
+    if (inputValue.length >= 1) {
+      this.weatherService.searchLocations(inputValue).subscribe((response) => {
+        this.locations = response;
+      });
     }
+  }
+
+  getWeatherData(place: string) {
+    this.weatherService.listWeather(place).subscribe(
+      (weatherData: any) => {
+        console.log(weatherData);
+      },
+      (error: any) => {
+        console.error('Error loading data');
+      }
+    );
+  }
+
+  assignValue(item: any) {
+    this.selectedLocation = item.name as string;
+    this.getWeatherData(this.selectedLocation);
   }
 }

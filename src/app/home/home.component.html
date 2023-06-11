@@ -3,14 +3,13 @@
     <mat-toolbar class="d-flex search-bar bg-primary text-white">
       <form>
         <mat-form-field>
-          <input matInput type="text" placeholder="Search">
+          <input #textEntered matInput type="text" [matAutocomplete]="auto" aria-label="locations" matInput
+            placeholder="Search" [formControl]="LocationControl" (input)="getLocations()">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let location of filteredLocations | async" [value]="location">
-              {{ location }}
+            <mat-option *ngFor="let location of locations" (click)="assignValue(location)">
+              {{location.name}}
             </mat-option>
           </mat-autocomplete>
-          <mat-icon class="location-icon" (click)="detectLocation()">my_location</mat-icon>
-          <mat-icon class="search-icon" (click)="searchLocation()">search</mat-icon>
         </mat-form-field>
       </form>
       <span class="location p-2">Location</span>
