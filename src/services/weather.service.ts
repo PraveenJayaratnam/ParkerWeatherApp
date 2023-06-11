@@ -8,8 +8,13 @@ import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 export class WeatherService {
   constructor(private http: HttpClient) {}
 
-  listWeather(location: string): Observable<any> {
+  currentWeather(location: string): Observable<any> {
     const apiUrl = `http://api.weatherapi.com/v1/current.json?key=3da02ff7c3024565964190500231006&q=${location}&aqi=no`;
+    return this.http.get<any[]>(apiUrl);
+  }
+
+  forcastWeather(location: string): Observable<any> {
+    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=3da02ff7c3024565964190500231006&q=${location}&days=3&aqi=no&alerts=no`;
     return this.http.get<any[]>(apiUrl);
   }
 

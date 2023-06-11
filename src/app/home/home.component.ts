@@ -1,16 +1,24 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { WeatherService } from '../../services/weather.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   locations: any[] = [];
   LocationControl: FormControl = new FormControl();
   @ViewChild('textEntered') textEntered!: ElementRef;
+  subscriptions: Subscription[] = [];
   selectedLocation: any;
   locationName: any;
   cloudCover: any;
@@ -41,9 +49,12 @@ export class HomeComponent implements OnInit {
   getLocations() {
     const inputValue = this.textEntered.nativeElement.value;
     if (inputValue.length >= 1) {
-      this.weatherService.searchLocations(inputValue).subscribe((response) => {
-        this.locations = response;
-      });
+      const subscription = this.weatherService
+        .searchLocations(inputValue)
+        .subscribe((response) => {
+          this.locations = response;
+        });
+      this.subscriptions.push(subscription);
     }
   }
 
@@ -52,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   getWeatherData(place: string) {
-    this.weatherService.listWeather(place).subscribe(
+    const subscription = this.weatherService.currentWeather(place).subscribe(
       (weatherData: any) => {
         this.locationName = weatherData.location.name;
         this.cloudCover = weatherData.current.cloud;
@@ -80,10 +91,30 @@ export class HomeComponent implements OnInit {
         console.error('Error loading data');
       }
     );
+    this.subscriptions.push(subscription);
+  }
+
+  getForcastData(place: string) {
+    const subscription = this.weatherService.forcastWeather(place).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error('Error in loading Data');
+      }
+    );
+    this.subscriptions.push(subscription);
   }
 
   assignValue(item: any) {
     this.selectedLocation = item.name as string;
     this.getWeatherData(this.selectedLocation);
+    this.getForcastData(this.selectedLocation);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }
