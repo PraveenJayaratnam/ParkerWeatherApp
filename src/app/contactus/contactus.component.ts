@@ -36,7 +36,16 @@ export class ContactusComponent implements OnInit {
         contactUs
       )
       .subscribe(
-        () => {},
+        () => {
+          this.contactForm.patchValue({
+            name: [''],
+            email: [''],
+            message: [''],
+          });
+          this.contactForm.markAsPristine();
+          this.contactForm.markAsUntouched();
+          console.log(this.contactForm);
+        },
         (error) => {}
       );
   }
