@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
   getWeatherData(place: string) {
     this.weatherService.listWeather(place).subscribe(
       (weatherData: any) => {
-        console.log(weatherData);
         this.locationName = weatherData.location.name;
         this.cloudCover = weatherData.current.cloud;
         this.condition = weatherData.current.condition.text;

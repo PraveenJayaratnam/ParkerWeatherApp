@@ -50,7 +50,7 @@
 }
 
 .zoom-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
@@ -62,4 +62,20 @@
     box-shadow: none;
     cursor: auto;
   }
+}
+
+.exp-img {
+  width: 90px;
+  height: 90px;
+}
+
+@media (min-width:768px) {
+  .height-lock {
+    height: 75vh;
+  }
+}
+
+.bg-card {
+  background-color: transparent;
+  color: grey;
 }

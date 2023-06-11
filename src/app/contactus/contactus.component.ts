@@ -28,7 +28,7 @@ export class ContactusComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  updateMessage() {
     const contactUs: ContactInterface = this.contactForm.value;
     this.http
       .post(
@@ -48,5 +48,11 @@ export class ContactusComponent implements OnInit {
         },
         (error) => {}
       );
+  }
+
+  onSubmit() {
+    if (this.contactForm.valid) {
+      this.updateMessage();
+    }
   }
 }
