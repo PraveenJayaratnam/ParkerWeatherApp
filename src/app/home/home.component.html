@@ -16,65 +16,29 @@
     </mat-toolbar>
   </mat-card>
   <div class="row mt-3">
-    <div class="col-md-3 col-sm-6">
+    <!-- //basic info component -->
+    <div class="col-md-2 col-sm-6">
       <mat-card class="zoom-card mb-2">
         <div class="card">
-          <img class="card-img-top" src="../../assets/draw2.webp" alt="weather experience">
+          <img class="card-img-top" [src]="weatherIcon" (error)="setDefaultImage()" alt="weather experience">
           <div class="card-body bg-success bg-dark bg-gradient text-white">
             <h5 class="card-title">
-              Juneau, Alaska, US
+              {{locationName}}
             </h5>
-            <p class="display-2 my-3">1.28°C</p>
-            <p class="mb-2">Feels Like: <strong>-1.08 °C</strong></p>
-            <h5>Snowy</h5>
+            <p class="display-2 my-3">{{temperatureCelcius}}°C</p>
+            <p class="mb-2">Feels Like: <strong>{{feelsLikeCelcius}} °C</strong></p>
+            <p class="mb-2">UV Index: <strong>{{uvIndex}}</strong></p>
+            <h5>{{condition}}</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated at {{lastUpdated}} {{country}} time.</small>
           </div>
         </div>
       </mat-card>
     </div>
-    <div class="col-md-3 col-sm-6">
-      <mat-card class="zoom-card mb-2">
-        <div class="card">
-          <img class="card-img-top" src="../../assets/draw1.webp" alt="weather experience">
-          <div class="card-body">
-            <h5 class="card-title">
-              Juneau, Alaska, US
-            </h5>
-            <p class="display-2 my-3">1.28°C</p>
-            <p class="mb-2">Feels Like: <strong>-1.08 °C</strong></p>
-            <h5>Snowy</h5>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <mat-card class="zoom-card mb-2">
-        <div class="card">
-          <img class="card-img-top" src="../../assets/draw2.webp" alt="weather experience">
-          <div class="card-body">
-            <h5 class="card-title">
-              Juneau, Alaska, US
-            </h5>
-            <p class="display-2 my-3">1.28°C</p>
-            <p class="mb-2">Feels Like: <strong>-1.08 °C</strong></p>
-            <h5>Snowy</h5>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <mat-card class="zoom-card mb-2">
-        <div class="card">
-          <img class="card-img-top" src="../../assets/draw1.webp" alt="weather experience">
-          <div class="card-body">
-            <h5 class="card-title">
-              Juneau, Alaska, US
-            </h5>
-            <p class="display-2 my-3">1.28°C</p>
-            <p class="mb-2">Feels Like: <strong>-1.08 °C</strong></p>
-            <h5>Snowy</h5>
-          </div>
-        </div>
-      </mat-card>
+    <!-- Detailed info Component -->
+    <div class="col-md-9 col-sm-12">
+
     </div>
   </div>
 

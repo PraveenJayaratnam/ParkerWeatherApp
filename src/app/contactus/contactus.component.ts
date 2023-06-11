@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ContactInterface } from '../contactus.model';
+import { ContactInterface } from '../../models/contactus.model';
 
 @Component({
   selector: 'app-contactus',

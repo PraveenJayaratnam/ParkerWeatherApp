@@ -11,7 +11,6 @@ import { AboutComponent } from './about/about.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { TimeComponent } from './time/time.component';
 import { HttpClientModule } from '@angular/common/http';
-import { TestingComponent } from './testing/testing.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -21,7 +20,6 @@ import { TestingComponent } from './testing/testing.component';
     AboutComponent,
     ContactusComponent,
     TimeComponent,
-    TestingComponent,
   ],
   imports: [
     BrowserModule,
