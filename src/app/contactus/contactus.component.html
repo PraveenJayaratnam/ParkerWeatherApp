@@ -2,7 +2,7 @@
 
   <h2>Contact Us</h2>
   <div class="contact-form">
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
       <div>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Name</mat-label>
@@ -38,7 +38,9 @@
         </mat-form-field>
       </div>
       <div>
-        <button class="btn btn-primary mt-2" type="submit" [disabled]="isDisabled">Send Message</button>
+        <button class="btn btn-primary mt-2" type="submit" (click)="openSnackBar('Submitted successfully','Dismiss')"
+          [disabled]="isDisabled">Send
+          Message</button>
       </div>
     </form>
   </div>

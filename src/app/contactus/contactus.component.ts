@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContactInterface } from '../../models/contactus.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contactus',
@@ -13,7 +14,11 @@ export class ContactusComponent implements OnInit {
   isDisabled: boolean = true;
   maximumCharacters: number = 150;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.createContactForm();
@@ -30,11 +35,17 @@ export class ContactusComponent implements OnInit {
 
   subscribeToFormChanges() {
     this.contactForm.statusChanges.subscribe((value) => {
-      this.contactForm.updateValueAndValidity;
       if (value == 'VALID') {
         this.isDisabled = false;
       } else this.isDisabled = true;
     });
+  }
+
+  openSnackBar(message: string, action: string | undefined) {
+    const snackBarRef = this.snackBar.open(message, action);
+    setTimeout(() => {
+      snackBarRef.dismiss();
+    }, 2000);
   }
 
   updateMessage() {
@@ -54,7 +65,7 @@ export class ContactusComponent implements OnInit {
     if (this.contactForm.valid) {
       this.updateMessage();
       this.contactForm.reset();
-      window.location.reload();
     }
+    this.contactForm.updateValueAndValidity();
   }
 }
