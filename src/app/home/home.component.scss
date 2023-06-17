@@ -20,30 +20,6 @@
   max-height: 140px;
 }
 
-.search-icon {
-  color: grey;
-  vertical-align: middle;
-  position: relative;
-  right: 33px;
-  cursor: pointer;
-}
-
-.location-icon {
-  color: grey;
-  vertical-align: middle;
-  position: relative;
-  right: 35px;
-  cursor: pointer;
-}
-
-.location-icon:hover {
-  color: #0088ff;
-}
-
-.search-icon:hover {
-  color: #0088ff;
-}
-
 .zoom-card {
   overflow: hidden;
   transition: transform 0.2s ease-in-out;

@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   LocationControl: FormControl = new FormControl();
   @ViewChild('textEntered') textEntered!: ElementRef;
   subscriptions: Subscription[] = [];
+  isLoading: boolean = false;
   selectedLocation: any;
   locationName: any;
   cloudCover: any;
@@ -49,11 +50,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   getLocations() {
     const inputValue = this.textEntered.nativeElement.value;
     if (inputValue.length >= 1) {
+      this.isLoading = true;
       const subscription = this.weatherService
         .searchLocations(inputValue)
-        .subscribe((response) => {
-          this.locations = response;
-        });
+        .subscribe(
+          (response) => {
+            this.locations = response;
+            this.isLoading = false;
+          },
+          (error) => {
+            console.error('Error loading locations');
+            this.isLoading = false;
+          }
+        );
       this.subscriptions.push(subscription);
     }
   }

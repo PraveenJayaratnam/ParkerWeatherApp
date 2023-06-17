@@ -42,9 +42,12 @@
         <div class="card height-lock">
 
           <div class="card-body bg-card">
+            <div *ngIf="isLoading" class="text-center my-5">
+              <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+            </div>
             <div class="row">
-              <div class="d-flex justify-content-between">
-                <div>
+              <div class="d-flex ">
+                <div class="col-md-6">
                   <h4 class="card-title">
                     City: {{locationName}}
                   </h4>
@@ -54,14 +57,14 @@
                   </h4>
 
                 </div>
-                <div>
-                  <p class="display-4 my-3"><strong>{{temperatureCelcius}}°C</strong></p>
-                  <p class="mb-2">Feels Like: <strong>{{feelsLikeCelcius}} °C / {{feelsLikeFarenhite}} °F</strong></p>
-                  <p class="mb-2">UV Index: <strong>{{uvIndex}}</strong></p>
-                </div>
-                <div>
-                  <div class="col-md-2">
-                    <img class="card-img-top exp-img" [src]="weatherIcon" (error)="setDefaultImage()"
+                <div class="col-md-6 d-flex p-3">
+                  <div class="col-md-8">
+                    <p class="display-4 my-3"><strong>{{temperatureCelcius}}°C</strong></p>
+                    <p class="mb-2">Feels Like: <strong>{{feelsLikeCelcius}} °C / {{feelsLikeFarenhite}} °F</strong></p>
+                    <p class="mb-2">UV Index: <strong>{{uvIndex}}</strong></p>
+                  </div>
+                  <div class="col-md-4">
+                    <img class="card-img-top exp-img p-3" [src]="weatherIcon" (error)="setDefaultImage()"
                       alt="weather experience">
                   </div>
                 </div>
