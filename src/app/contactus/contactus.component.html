@@ -7,7 +7,8 @@
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Name</mat-label>
           <input matInput type="text" name="name" formControlName="name">
-          <mat-error *ngIf="(contactForm.get('name')?.touched || contactForm.get('name')?.dirty)" class="small">* name
+          <mat-error *ngIf="contactForm.get('name')?.hasError('required') && contactForm.get('name')?.touched"
+            class="small">* name
             is Required</mat-error>
         </mat-form-field>
       </div>
@@ -15,12 +16,10 @@
         <mat-form-field class="w-100 mt-3" appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput type="email" name="email" formControlName="email">
-          <mat-error
-            *ngIf="contactForm.get('email')?.errors?.['required'] && (contactForm.get('email')?.touched || contactForm.get('email')?.dirty)"
+          <mat-error *ngIf="contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched"
             class="small">* email is
             required</mat-error>
-          <mat-error
-            *ngIf="!contactForm.get('email')?.errors?.['required'] && (contactForm.get('email')?.touched || contactForm.get('email')?.dirty)"
+          <mat-error *ngIf="contactForm.get('email')?.hasError('email') && contactForm.get('email')?.touched"
             class="small">* please Enter a Valid
             Email</mat-error>
         </mat-form-field>
@@ -28,24 +27,17 @@
       <div>
         <mat-form-field class="w-100 mt-3" appearance="outline">
           <mat-label>Message</mat-label>
-          <textarea matInput name="message" required formControlName="message"></textarea>
-          <mat-error
-            *ngIf="contactForm.get('message')?.errors?.['required'] && (contactForm.get('message')?.touched || contactForm.get('message')?.dirty)"
+          <textarea matInput name="message" rows="2" maxlength="maximumCharacters" formControlName="message"></textarea>
+          <mat-error *ngIf="contactForm.get('message')?.hasError('required') && contactForm.get('message')?.touched"
             class="small">* Please enter a
             message.</mat-error>
-          <mat-error
-            *ngIf="contactForm.get('message')?.errors?.['minlength'] && (contactForm.get('message')?.touched || contactForm.get('message')?.dirty)"
-            class="small">* At least 8 letters
-            required.</mat-error>
-          <mat-error
-            *ngIf="contactForm.get('message')?.errors?.['maxlength'] && (contactForm.get('message')?.touched || contactForm.get('message')?.dirty)"
-            class="small">* Only 100 letters
-            allowed.</mat-error>
+          <mat-hint *ngIf="contactForm.get('message')?.value?.length>0" class="hint">
+            {{maximumCharacters - contactForm.get('message')?.value.length}} Characters left
+          </mat-hint>
         </mat-form-field>
-
       </div>
       <div>
-        <button class="btn btn-primary" type="submit">Send Message</button>
+        <button class="btn btn-primary mt-2" type="submit" [disabled]="isDisabled">Send Message</button>
       </div>
     </form>
   </div>

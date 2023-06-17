@@ -10,21 +10,30 @@ import { ContactInterface } from '../../models/contactus.model';
 })
 export class ContactusComponent implements OnInit {
   contactForm!: FormGroup;
+  isDisabled: boolean = true;
+  maximumCharacters: number = 150;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.createContactForm();
+    this.subscribeToFormChanges();
+  }
+
+  createContactForm() {
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      message: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(100),
-        ],
-      ],
+      message: ['', Validators.required],
+    });
+  }
+
+  subscribeToFormChanges() {
+    this.contactForm.statusChanges.subscribe((value) => {
+      this.contactForm.updateValueAndValidity;
+      if (value == 'VALID') {
+        this.isDisabled = false;
+      } else this.isDisabled = true;
     });
   }
 
@@ -36,16 +45,7 @@ export class ContactusComponent implements OnInit {
         contactUs
       )
       .subscribe(
-        () => {
-          this.contactForm.patchValue({
-            name: [''],
-            email: [''],
-            message: [''],
-          });
-          this.contactForm.markAsPristine();
-          this.contactForm.markAsUntouched();
-          console.log(this.contactForm);
-        },
+        () => {},
         (error) => {}
       );
   }
@@ -53,6 +53,7 @@ export class ContactusComponent implements OnInit {
   onSubmit() {
     if (this.contactForm.valid) {
       this.updateMessage();
+      this.contactForm.reset();
     }
   }
 }
