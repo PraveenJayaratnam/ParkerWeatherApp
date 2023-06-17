@@ -128,11 +128,12 @@
 
     <!-- forcast Component -->
     <div class="col-md-6 col-sm-12 p-2 mat-elevation-z8">
-      <mat-card class="zoom-card mb-2 card">
+      <mat-card class="zoom-card mb-2 card height-lock">
         <div *ngIf="isLoading" class="text-center my-5">
           <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
         </div>
-        <mat-table *ngIf="!isLoadingForecast && !isTableEmpty; else loadingOrNoData" [dataSource]="dataSource">
+        <mat-table *ngIf="!isLoadingForecast && !isTableEmpty; else loadingOrNoData" [dataSource]="dataSource"
+          class="height-lock">
 
           <!-- Forcast Date Column -->
           <ng-container matColumnDef="forCastDate">
