@@ -54,6 +54,7 @@ export class ContactusComponent implements OnInit {
     if (this.contactForm.valid) {
       this.updateMessage();
       this.contactForm.reset();
+      window.location.reload();
     }
   }
 }
