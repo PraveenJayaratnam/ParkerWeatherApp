@@ -45,7 +45,7 @@ export class ContactusComponent implements OnInit {
     const snackBarRef = this.snackBar.open(message, action);
     setTimeout(() => {
       snackBarRef.dismiss();
-    }, 2000);
+    }, 5000);
   }
 
   updateMessage() {
