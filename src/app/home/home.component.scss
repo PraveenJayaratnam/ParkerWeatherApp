@@ -55,3 +55,79 @@
   background-color: transparent;
   color: grey;
 }
+
+mdc-header-cell {
+  padding-left: 0 !important;
+  padding-right: 5px !important;
+  overflow-wrap: break-word;
+  font-weight: bold;
+}
+
+mdc-cell,
+mdc-header-cell {
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+mat-header-cell:first-of-type,
+mat-footer-cell:first-of-type {
+  padding-left: 10px !important;
+}
+
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 10px !important;
+}
+
+.mat-column-forCastDate,
+.mat-column-sunRiseSet,
+.mat-column-avgHumidity,
+.mat-column-dailyChanceOfRain,
+.mat-column-maxTemp,
+.mat-column-minTemp {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+}
+
+.mat-column-forCastDate {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 14%;
+}
+
+.mat-column-sunRiseSet {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 18%;
+}
+
+.mat-column-avgHumidity {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 12%;
+}
+
+.mat-column-dailyChanceOfRain {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 25%;
+}
+
+.mat-column-maxTemp {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 15%;
+}
+
+.mat-column-minTemp {
+  overflow-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 15%;
+}
+
+
+@media (max-width: 767px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}

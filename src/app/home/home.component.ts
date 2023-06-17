@@ -8,6 +8,8 @@ import {
 import { FormControl } from '@angular/forms';
 import { WeatherService } from '../../services/weather.service';
 import { Subscription } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { ForecastData } from '../../models/forecast.model';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('textEntered') textEntered!: ElementRef;
   subscriptions: Subscription[] = [];
   isLoading: boolean = false;
+
   selectedLocation: any;
   locationName: any;
   cloudCover: any;
@@ -42,10 +45,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   longitude: any;
   localtime: any;
   country: any;
+  isTableEmpty: boolean = true;
+
+  dataSource!: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'forCastDate',
+    'sunRiseSet',
+    'avgHumidity',
+    'dailyChanceOfRain',
+    'maxTemp',
+    'minTemp',
+  ];
+  isLoadingForecast!: boolean;
 
   constructor(private weatherService: WeatherService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<any>([]);
+  }
 
   getLocations() {
     const inputValue = this.textEntered.nativeElement.value;
@@ -103,13 +120,44 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription);
   }
 
-  getForcastData(place: string) {
+  getForeCastData(place: string) {
+    this.isLoadingForecast = true;
     const subscription = this.weatherService.forcastWeather(place).subscribe(
-      (response) => {
-        console.log(response);
+      (forecastData: any) => {
+        this.isLoadingForecast = false;
+        const forecastArray: ForecastData[] = [];
+
+        for (let i = 0; i < 3; i++) {
+          const forecastDay = forecastData.forecast.forecastday[i].day;
+          const forecastAstro = forecastData.forecast.forecastday[i].astro;
+          const forecastCondition =
+            forecastData.forecast.forecastday[i].day.condition;
+
+          const forecastItem: ForecastData = {
+            forCastDate: forecastData.forecast.forecastday[i].date,
+            sunRise: forecastAstro.sunrise,
+            sunSet: forecastAstro.sunset,
+            avgHumidity: forecastDay.avghumidity,
+            dailyChanceOfRain: forecastCondition.text,
+            maxTempInC: forecastDay.maxtemp_c,
+            maxTempInF: forecastDay.maxtemp_f,
+            minTempInC: forecastDay.mintemp_c,
+            minTempInF: forecastDay.mintemp_f,
+            icon: forecastCondition.icon,
+          };
+
+          forecastArray.push(forecastItem);
+        }
+        this.dataSource = new MatTableDataSource<any>(forecastArray);
+        if (forecastArray.length === 0) {
+          this.isTableEmpty = true;
+        } else {
+          this.isTableEmpty = false;
+        }
       },
       (error) => {
-        console.error('Error in loading Data');
+        console.error('Error in loading data');
+        this.isLoadingForecast = false;
       }
     );
     this.subscriptions.push(subscription);
@@ -118,7 +166,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   assignValue(item: any) {
     this.selectedLocation = item.name as string;
     this.getWeatherData(this.selectedLocation);
-    this.getForcastData(this.selectedLocation);
+    this.getForeCastData(this.selectedLocation);
   }
 
   ngOnDestroy(): void {
