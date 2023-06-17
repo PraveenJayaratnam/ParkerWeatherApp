@@ -27,7 +27,8 @@
       <div>
         <mat-form-field class="w-100 mt-3" appearance="outline">
           <mat-label>Message</mat-label>
-          <textarea matInput name="message" rows="2" maxlength="maximumCharacters" formControlName="message"></textarea>
+          <textarea matInput name="message" rows="2" [maxlength]="maximumCharacters"
+            formControlName="message"></textarea>
           <mat-error *ngIf="contactForm.get('message')?.hasError('required') && contactForm.get('message')?.touched"
             class="small">* Please enter a
             message.</mat-error>
