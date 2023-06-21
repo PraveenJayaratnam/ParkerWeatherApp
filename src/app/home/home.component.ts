@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   LocationControl: FormControl = new FormControl();
   @ViewChild('textEntered') textEntered!: ElementRef;
   subscriptions: Subscription[] = [];
-  isLoading: boolean = false;
+  isLoading = false;
 
   selectedLocation: any;
   locationName: any;
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   longitude: any;
   localtime: any;
   country: any;
-  isTableEmpty: boolean = true;
+  isTableEmpty = true;
 
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = [

@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time.component.scss'],
 })
 export class TimeComponent implements OnInit {
-  hr: string = '';
-  min: string = '';
-  sec: string = '';
-  ampm: string = '';
+  hr = '';
+  min = '';
+  sec = '';
+  ampm = '';
 
   ngOnInit(): void {
     setInterval(() => {

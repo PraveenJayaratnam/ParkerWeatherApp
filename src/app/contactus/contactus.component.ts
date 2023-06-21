@@ -11,8 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ContactusComponent implements OnInit {
   contactForm!: FormGroup;
-  isDisabled: boolean = true;
-  maximumCharacters: number = 150;
+  isDisabled = true;
+  maximumCharacters = 150;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,10 +55,7 @@ export class ContactusComponent implements OnInit {
         'https://parkerweatherapp-default-rtdb.firebaseio.com/contactUs.json',
         contactUs
       )
-      .subscribe(
-        () => {},
-        (error) => {}
-      );
+      .subscribe();
   }
 
   onSubmit() {
