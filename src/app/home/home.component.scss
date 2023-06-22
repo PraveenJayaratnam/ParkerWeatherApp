@@ -114,3 +114,9 @@ mdc-header-cell {
   white-space: unset !important;
   flex: 0 0 15%;
 }
+
+@media (max-width: 597px) {
+  .hide-content {
+    display: none !important;
+  }
+}
