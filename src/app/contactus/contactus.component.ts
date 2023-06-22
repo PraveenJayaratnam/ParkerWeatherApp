@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContactInterface } from '../../models/contactus.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
   styleUrls: ['./contactus.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactusComponent implements OnInit {
   contactForm!: FormGroup;
