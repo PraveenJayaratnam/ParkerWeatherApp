@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContactInterface } from '../../models/contactus.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
@@ -18,7 +18,8 @@ export class ContactusComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class ContactusComponent implements OnInit {
     if (this.contactForm.valid) {
       this.updateMessage();
       this.contactForm.reset();
+      this.router.navigate(['']);
     }
-    this.contactForm.updateValueAndValidity();
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Component,
   ElementRef,
@@ -10,6 +12,7 @@ import { WeatherService } from '../../services/weather.service';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { ForecastData } from '../../models/forecast.model';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -58,10 +61,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
   isLoadingForecast!: boolean;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private dataService: DataService
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<any>([]);
+
+    const searchValue = localStorage.getItem('searchValue');
+    if (searchValue) {
+      this.LocationControl.setValue(searchValue);
+      this.getWeatherAndForecastData(searchValue);
+    }
+
+    this.dataService.locationsData$.subscribe((data) => {
+      this.locations = data;
+    });
   }
 
   getLocations() {
@@ -74,6 +90,9 @@ export class HomeComponent implements OnInit, OnDestroy {
           (response) => {
             this.locations = response;
             this.isLoading = false;
+            this.dataService.setLocationsData(response);
+            this.getWeatherAndForecastData(inputValue);
+            localStorage.setItem('searchValue', inputValue);
           },
           (error) => {
             console.error('Error loading locations');
@@ -82,6 +101,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         );
       this.subscriptions.push(subscription);
     }
+  }
+
+  getWeatherAndForecastData(place: string) {
+    this.getWeatherData(place);
+    this.getForeCastData(place);
   }
 
   setDefaultImage() {
