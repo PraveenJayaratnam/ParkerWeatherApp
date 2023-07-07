@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     const searchValue = localStorage.getItem('searchValue');
     if (searchValue) {
-      // this.LocationControl.setValue(searchValue);
       this.getWeatherAndForecastData(searchValue);
     }
 
